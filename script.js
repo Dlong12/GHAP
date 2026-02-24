@@ -6,7 +6,6 @@ const IMAGE_BOUNDS = [[-90, -180], [90, 180]];
 // list.json 放在与 index.html 同目录：
 // 内容示例：["20010101_fAOD.webp", "20010102_fAOD.webp"]
 const LIST_URL = new URL('list.json', location.href); // 关键：适配 GitHub Pages 子路径
-
 // ====== 初始化地图 ======
 
 const map = L.map('map', {
