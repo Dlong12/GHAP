@@ -1,37 +1,25 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>ChinaHighAirPollutants</title>
-    <link rel="stylesheet" href="./leaflet.css" />
-    <link rel="stylesheet" href="./style.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CHAP - fAOD</title>
+
+  <!-- Leaflet CSS/JS（必须配套加载，否则底图容易显示不全/错位） -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    html, body { height: 100%; margin: 0; }
+    /* 让地图永远有明确高度，避免“底图显示不全” */
+    #map { height: 100vh; width: 100vw; }
+  </style>
 </head>
 
 <body>
-    <div id="header">
-        <div class="logo">
-            <!-- <span>logo</span> -->
-            <img src="./logo_white.png"></img>
-            <h1>Near Real-Time (NRT)</h1>
-        </div>
-        <div class="menu">
-            <nav>
-                <a href="./index.html" style="font-weight: bold;">Home</a>
-                <a href="./introduction.html">Introduction</a>
-                <a href="./team.html">Team</a>
-                <a href="#">Other</a>
-            </nav>
-        </div>
-    </div>
-    <div id="map"></div>
-    <!-- 简化页面：仅保留地图容器，其他 UI 已移除 -->
-    
-    <div id="footer">
-        Copyright © 2025 CHAP. All rights reserved.
-    </div>
+  <div id="map"></div>
+
+  <!-- 你的业务脚本 -->
+  <script src="./script.js"></script>
 </body>
-<script src="./script.js"></script>
 </html>
