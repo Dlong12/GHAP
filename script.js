@@ -11,7 +11,7 @@ const fAODLayerGroup = L.layerGroup().addTo(map);
 
 // 从后端获取 fAOD 下的 .webp 列表并将每个作为全局 ImageOverlay 添加
 function loadFAOD() {
-    fetch('/fAOD/list')
+    fetch('/list')
         .then(r => { if (!r.ok) throw new Error('fetch failed'); return r.json(); })
         .then(list => {
             if (!Array.isArray(list)) return;
