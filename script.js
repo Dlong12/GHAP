@@ -13,9 +13,9 @@ var map = L.map('map', {
   zoomControl: false,
   minZoom: 1
 }).setView([36, 105], 1);
+
 // ====== 边界线图层 ======
 const BOUNDARY_URL = new URL('Continents.json', location.href);
-
 const boundaryLayer = L.geoJSON(null, {
   style: {
     color: '#00ffff',   // 线颜色
@@ -24,6 +24,20 @@ const boundaryLayer = L.geoJSON(null, {
     fill: false
   }
 }).addTo(map);
+
+// 加载边界（要求 Continents.json 是 GeoJSON）
+async function loadBoundary() {
+  const r = await fetch(BOUNDARY_URL, { cache: 'no-store' });
+  if (!r.ok) throw new Error(`Continents.json fetch failed: ${r.status} ${r.statusText}`);
+  const gj = await r.json();
+
+  boundaryLayer.clearLayers();
+  boundaryLayer.addData(gj);
+  boundaryLayer.bringToFront();
+}
+
+loadBoundary().catch(console.error);
+
 
 // var gibs4326 = L.tileLayer(
 //   'https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/EPSG4326_250m/{z}/{y}/{x}.jpg',
@@ -34,10 +48,17 @@ const boundaryLayer = L.geoJSON(null, {
 //     attribution: 'NASA GIBS'
 //   }
 // ).addTo(map);
-
-// fAOD 图层组 + 控制器
+// fAOD 图层组（要放在 layersCtl 之前）
 const faodGroup = L.layerGroup().addTo(map);
-L.control.layers(null, { 'fAOD': faodGroup }, { collapsed: false }).addTo(map);
+
+// 图层控制器
+const layersCtl = L.control.layers(
+  null,
+  { 'fAOD': faodGroup, 'Boundary': boundaryLayer },
+  { collapsed: false }
+).addTo(map);
+
+layersCtl.addOverlay(boundaryLayer, 'Boundary');
 
 // 首次布局后修正尺寸（避免容器初始尺寸计算不准）
 setTimeout(() => map.invalidateSize(), 0);
