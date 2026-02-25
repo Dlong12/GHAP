@@ -12,7 +12,7 @@ var map = L.map('map', {
   crs: L.CRS.EPSG4326,
   zoomControl: false,
   minZoom: 1
-}).setView([36, 105], 5);
+}).setView([36, 105], 1);
 
 // var gibs4326 = L.tileLayer(
 //   'https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/EPSG4326_250m/{z}/{y}/{x}.jpg',
