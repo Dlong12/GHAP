@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GHAP - fAOD</title>
 
-  <!-- Leaflet CSS/JS（必须配套加载，否则底图容易显示不全/错位） -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <style>
     html, body { height: 100%; margin: 0; }
-    /* 让地图永远有明确高度，避免“底图显示不全” */
     #map { height: 100vh; width: 100vw; }
   </style>
 </head>
-  
-  <!-- 你的业务脚本 -->
+
+<body>
+  <div id="map"></div>
+
+  <!-- 你的业务脚本：放在 map 容器后面 -->
   <script src="./script.js"></script>
 </body>
 </html>
