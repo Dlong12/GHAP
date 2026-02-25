@@ -156,17 +156,11 @@ legend.onAdd = function () {
 
   // 你 getColor 的分级（按 fAOD）
   const breaks = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875]; // 最后一档是 >0.875
-  const labels = ['0', '0–0.125', '0.125–0.25', '0.25–0.375', '0.375–0.5', '0.5–0.625', '0.625–0.75', '0.75–0.875', '>0.875'];
+  const labels = ['0', '0.125', '0.25', '0.375', '0.5', '625', '0.75', '0.875', '1'];
 
   let html = `<div class="legend-title">fAOD</div>`;
   html += `<div class="legend-list">`;
 
-  // 0 档
-  html += `
-    <div class="legend-item">
-      <span class="legend-swatch" style="background:${getColor('fAOD', 0)}"></span>
-      <span class="legend-label">${labels[0]}</span>
-    </div>`;
 
   // 其余档位：用每档上界作为取色值（和你 getColor 逻辑匹配）
   for (let i = 0; i < breaks.length; i++) {
