@@ -18,7 +18,7 @@ var map = L.map('map', {
 const BOUNDARY_URL = new URL('Continents.json', location.href);
 const boundaryLayer = L.geoJSON(null, {
   style: {
-    color: '#00ffff',   // 线颜色
+    color: '#ff0000',   // 线颜色
     weight: 1.5,        // 线宽
     opacity: 0.9,
     fill: false
@@ -58,7 +58,6 @@ const layersCtl = L.control.layers(
   { collapsed: false }
 ).addTo(map);
 
-layersCtl.addOverlay(boundaryLayer, 'Boundary');
 
 // 首次布局后修正尺寸（避免容器初始尺寸计算不准）
 setTimeout(() => map.invalidateSize(), 0);
