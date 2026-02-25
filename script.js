@@ -12,13 +12,13 @@ var map = L.map('map', {
   crs: L.CRS.EPSG4326,
   zoomControl: false,
   minZoom: 1
-}).setView([36, 105], 1);
+}).setView([36, 105], 2);
 
 // ====== 边界线图层 ======
 const BOUNDARY_URL = new URL('Continents.json', location.href);
 const boundaryLayer = L.geoJSON(null, {
   style: {
-    color: '#ff0000',   // 线颜色
+    color: '#fff000',   // 线颜色
     weight: 1.5,        // 线宽
     opacity: 0.9,
     fill: false
@@ -38,16 +38,6 @@ async function loadBoundary() {
 
 loadBoundary().catch(console.error);
 
-
-// var gibs4326 = L.tileLayer(
-//   'https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/EPSG4326_250m/{z}/{y}/{x}.jpg',
-//   {
-//     time: '2024-01-01',
-//     tileSize: 256,
-//     maxZoom: 8,
-//     attribution: 'NASA GIBS'
-//   }
-// ).addTo(map);
 // fAOD 图层组（要放在 layersCtl 之前）
 const faodGroup = L.layerGroup().addTo(map);
 
@@ -153,6 +143,56 @@ function updateLegendLabel() {
         document.getElementById('tick6').innerHTML = '0.875';
     }
 }
+
+// ====== 图例（Legend） ======
+const legend = L.control({ position: 'bottomright' });
+
+legend.onAdd = function () {
+  const div = L.DomUtil.create('div', 'legend');
+
+  // 阻止拖动地图时误触图例
+  L.DomEvent.disableClickPropagation(div);
+  L.DomEvent.disableScrollPropagation(div);
+
+  // 你 getColor 的分级（按 fAOD）
+  const breaks = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875]; // 最后一档是 >0.875
+  const labels = ['0', '0–0.125', '0.125–0.25', '0.25–0.375', '0.375–0.5', '0.5–0.625', '0.625–0.75', '0.75–0.875', '>0.875'];
+
+  let html = `<div class="legend-title">fAOD</div>`;
+  html += `<div class="legend-list">`;
+
+  // 0 档
+  html += `
+    <div class="legend-item">
+      <span class="legend-swatch" style="background:${getColor('fAOD', 0)}"></span>
+      <span class="legend-label">${labels[0]}</span>
+    </div>`;
+
+  // 其余档位：用每档上界作为取色值（和你 getColor 逻辑匹配）
+  for (let i = 0; i < breaks.length; i++) {
+    const v = breaks[i];
+    const idx = i + 1;
+    html += `
+      <div class="legend-item">
+        <span class="legend-swatch" style="background:${getColor('fAOD', v)}"></span>
+        <span class="legend-label">${labels[idx]}</span>
+      </div>`;
+  }
+
+  // >0.875 档，用 0.876 取色
+  html += `
+    <div class="legend-item">
+      <span class="legend-swatch" style="background:${getColor('fAOD', 0.876)}"></span>
+      <span class="legend-label">${labels[labels.length - 1]}</span>
+    </div>`;
+
+  html += `</div>`;
+
+  div.innerHTML = html;
+  return div;
+};
+
+legend.addTo(map);
   
 
 // 启动
