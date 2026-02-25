@@ -13,6 +13,17 @@ var map = L.map('map', {
   zoomControl: false,
   minZoom: 1
 }).setView([36, 105], 1);
+// ====== 边界线图层 ======
+const BOUNDARY_URL = new URL(' Continents.json', location.href);
+
+const boundaryLayer = L.geoJSON(null, {
+  style: {
+    color: '#00ffff',   // 线颜色
+    weight: 1.5,        // 线宽
+    opacity: 0.9,
+    fill: false
+  }
+}).addTo(map);
 
 // var gibs4326 = L.tileLayer(
 //   'https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/EPSG4326_250m/{z}/{y}/{x}.jpg',
