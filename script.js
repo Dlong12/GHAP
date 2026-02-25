@@ -104,9 +104,8 @@ function getColor(field, val) {
         }
     }
 }
-  /*
- *根据气体类型更新图例   
-*/
+
+//根据气体类型更新图例   
 function updateLegendLabel() {
     if (selectType == "type-fAOD") {
         document.getElementById('gas-label').innerHTML = 'fAOD:';
