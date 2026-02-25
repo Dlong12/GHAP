@@ -66,7 +66,9 @@ async function loadFAOD() {
   }
 
   console.log('fAOD overlays added:', added);
-  /**
+}
+
+ /**
  * 根据类型字段和值确定点颜色
  */
 function getColor(field, val) {
@@ -101,6 +103,7 @@ function getColor(field, val) {
             return colors[8];
         }
     }
+}
   /*
  *根据气体类型更新图例   
 */
@@ -117,10 +120,6 @@ function updateLegendLabel() {
     }
 }
   
-
-  // 3) 视图拉到覆盖范围，便于确认是否显示
-  map.fitBounds(IMAGE_BOUNDS);
-}
 
 // 启动
 loadFAOD().catch(err => console.error(err));
