@@ -15,10 +15,17 @@ const map = L.map('map', {
 }).setView([20, 0], 2);
 
 // 底图（Esri 影像）
-L.tileLayer(
-  'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-  { maxZoom: 19, attribution: 'Tiles © Esri' }
-).addTo(map);
+// L.tileLayer(
+//   'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+//   { maxZoom: 19, attribution: 'Tiles © Esri' }
+// ).addTo(map);
+
+L.tileLayer.wms('https://your-server/geoserver/wms', {
+  layers: 'xxx',
+  format: 'image/png',
+  transparent: true,
+  crs: L.CRS.EPSG4326
+})
 
 // fAOD 图层组 + 控制器
 const faodGroup = L.layerGroup().addTo(map);
