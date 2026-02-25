@@ -115,6 +115,7 @@ function updateLegendLabel() {
         document.getElementById('tick5').innerHTML = '0.75';
         document.getElementById('tick6').innerHTML = '0.875';
     }
+}
   
 
   // 3) 视图拉到覆盖范围，便于确认是否显示
