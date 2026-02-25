@@ -14,7 +14,7 @@ var map = L.map('map', {
   minZoom: 1
 }).setView([36, 105], 1);
 // ====== 边界线图层 ======
-const BOUNDARY_URL = new URL(' Continents.json', location.href);
+const BOUNDARY_URL = new URL('Continents.json', location.href);
 
 const boundaryLayer = L.geoJSON(null, {
   style: {
